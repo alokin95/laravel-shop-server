@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPublisherIdToGamesTable extends Migration
+class AddRoleIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class AddPublisherIdToGamesTable extends Migration
      */
     public function up()
     {
-        Schema::table('games', function (Blueprint $table) {
-            $table->unsignedBigInteger('publisher_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedBigInteger('role_id')->after('id');
 
-            $table->foreign('publisher_id')
+            $table->foreign('role_id')
                 ->references('id')
-                ->on('publishers')
+                ->on('roles')
                 ->onDelete('cascade');
         });
     }
@@ -30,8 +30,8 @@ class AddPublisherIdToGamesTable extends Migration
      */
     public function down()
     {
-        Schema::table('games', function (Blueprint $table) {
-            $table->dropColumn('publisher_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role_id');
         });
     }
 }
